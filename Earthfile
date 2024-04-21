@@ -27,14 +27,16 @@ GENERATE_REPOS_FILE:
   ARG rosdistro="humble"
   ARG outfile="ros2.repos"
 
-  RUN sudo apt-get install -y software-properties-common
-  RUN sudo add-apt-repository universe
-  RUN sudo apt-get update && sudo apt-get install -y curl gnupg lsb-release
+  USER root
+  ARG DEBIAN_FRONTEND=noninteractive
+  RUN apt-get install -y software-properties-common
+  RUN add-apt-repository universe
+  RUN apt-get update && sudo apt-get install -y curl gnupg lsb-release
   RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
   RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
   # Install repos file generator script requirements.
-  RUN sudo DEBIAN_FRONTEND=noninteractive apt-get install -y python3-rosinstall-generator
+  RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-rosinstall-generator
   RUN --no-cache rosinstall_generator \ 
         --format repos \ # Use the repos file format rather than rosinstall format.
         --rosdistro $rosdistro \ # Set rosdistro
