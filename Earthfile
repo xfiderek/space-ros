@@ -22,6 +22,8 @@ GENERATE_REPOS_FILE:
  # String with list of whitespace-separated ROS packages to exclude
   # Used to exclude packages which we don't incorporate into Space ROS
   ARG excluded_packages
+  # These repos will be cloned together with list of packages specified above.
+  ARG repos=""
   # Set rosdistro
   ARG rosdistro="humble"
   ARG outfile="ros2.repos"
@@ -39,6 +41,7 @@ GENERATE_REPOS_FILE:
         --rosdistro $rosdistro \ # Set rosdistro
         --deps \ # Include all dependencies
         --upstream \ # Use version tags of upstream repositories
+        --repos $repos \
         --exclude $excluded_packages  \ # Exclude packages which we don't incorporate into Space ROS
         -- $packages > $outfile
 
