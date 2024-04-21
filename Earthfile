@@ -13,7 +13,6 @@
 # limitations under the License.
 VERSION 0.8
 
-FROM ubuntu:jammy
 
 GENERATE_REPOS_FILE:
   FUNCTION
@@ -44,6 +43,7 @@ GENERATE_REPOS_FILE:
         -- $packages > $outfile
 
 repos-file:
+  FROM ubuntu:jammy
   # Disable prompting during package installation
   ARG DEBIAN_FRONTEND=noninteractive
   WORKDIR /root
