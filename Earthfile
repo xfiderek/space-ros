@@ -26,7 +26,7 @@ GENERATE_REPOS_FILE:
   ARG rosdistro="humble"
   ARG outfile="ros2.repos"
 
-  RUN sudo apt-get install -y software-properties-common
+  RUN sudo apt-get update && apt-get install -y software-properties-common
   RUN sudo add-apt-repository universe
   RUN sudo apt-get update && sudo apt-get install -y curl gnupg lsb-release
   RUN sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
