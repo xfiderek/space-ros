@@ -43,7 +43,7 @@ while true; do
             excluded_packages=$(echo $2 | tr "\n" " ")
             shift 2
             ;;
-        --repos-file )
+        --repos )
 			# change newlines to whitespaces
             repos=$(echo $2 | tr "\n" " ")
             shift 2
